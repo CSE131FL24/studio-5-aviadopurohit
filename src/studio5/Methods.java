@@ -1,5 +1,7 @@
 package studio5;
 
+import java.awt.Color;
+
 import edu.princeton.cs.introcs.StdDraw;
 
 public class Methods {
@@ -16,9 +18,10 @@ public class Methods {
 	public static double distanceBetween(double x1, double y1, double x2, double y2) {
 		double distance = 0;
 		// FIXME: Hint use Math methods (e.g. Math.sqrt) to compute the distance
-		
+		distance = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 		return distance;
 	}
+
 
 	/**
 	 * Draw a bull's eye at the given location with the given radius.
@@ -29,8 +32,36 @@ public class Methods {
 	 */
 	public static void drawBullsEye(double x, double y, double radius) {
 		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.filledCircle(x, y, radius);
+		StdDraw.filledCircle(x, y, radius); 
+		
+		int Circles = 5;
 
+        // Loop to draw concentric circles
+        for (int i = 0; i < Circles; i++) {
+            // Alternating colors (black and white)
+            if (i % 2 == 0) {
+                StdDraw.setPenColor(Color.BLACK);
+            } else {
+                StdDraw.setPenColor(Color.WHITE);
+            }
+
+            // Calculate the radius for each circle
+            double cRadius = radius - (i * (radius / Circles));
+
+            // Draw the filled circle
+            StdDraw.filledCircle(x, y, cRadius);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Set up the canvas size and scale
+        StdDraw.setCanvasSize(500, 500);
+        StdDraw.setXscale(0, 100);
+        StdDraw.setYscale(0, 100);
+
+        // Draw the bull's-eye at (50, 50) with radius 30
+        drawBullsEye(50, 50, 30);
+    
 		// TODO: Draw the remaining rings of the bull's eye
 		// Blue ring with 3.0/4.0 the radius
 		// suggested rgb values: 0, 109, 219
